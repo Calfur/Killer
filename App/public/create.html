@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create Game</title>
+  <script src="./script.js"></script>
 </head>
 <body>
   <h1>Create a New Killer Game</h1>
@@ -17,18 +18,7 @@
   <p id="createMessage"></p>
 
   <script>
-    document.getElementById('createForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const players = document.getElementById('players').value;
-
-      const response = await fetch('/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ players })
-      });
-      const result = await response.json();
-      document.getElementById('createMessage').textContent = result.message;
-    });
+    initSubmitCreateForm();
   </script>
 </body>
 </html>

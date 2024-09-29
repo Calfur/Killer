@@ -1,7 +1,7 @@
 FROM node:14-alpine AS backend
 
-WORKDIR /app
-COPY . /app
+WORKDIR /App
+COPY . /App
 
 RUN npm install
 
@@ -11,7 +11,7 @@ CMD ["node", "server.js"]
 
 FROM nginx:alpine
 
-COPY /app/public /usr/share/nginx/html
+COPY /App/public /usr/share/nginx/html
 
 EXPOSE 80
 

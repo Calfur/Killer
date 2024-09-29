@@ -44,7 +44,7 @@ jobs:
             ghcr.io/calfur/killer-frontend:latest
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
 
-  trigger-backend-deployment:
+  trigger-deployment:
     needs: build-docker-images
     runs-on: ubuntu-latest
     steps:
@@ -53,17 +53,5 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT_ACTIONS_TRIGGER }}
           repository: Calfur/calfur-dev
-          event-type: new-killer-backend-image
-          client-payload: '{"image_version": "${{ env.IMAGE_VERSION }}"}'
-
-  trigger-frontend-deployment:
-    needs: build-docker-images
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger image update in Calfur/calfur-dev
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.GH_PAT_ACTIONS_TRIGGER }}
-          repository: Calfur/calfur-dev
-          event-type: new-killer-frontend-image
-          client-payload: '{"image_version": "${{ env.IMAGE_VERSION }}"}'
+          event-type: new-killer-images
+          client-payload: '{"backend_image_version": "${{ env.IMAGE_VERSION }}", "frontend_image_version": "${{ env.IMAGE_VERSION }}"}'

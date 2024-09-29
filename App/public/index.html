@@ -3,32 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Killer</title>
+  <title>Killer Game</title>
 </head>
 <body>
-  <h1>Submit your Input</h1>
-  <form id="form">
-    <input type="text" id="inputField" placeholder="Enter something..." required />
-    <button type="submit">Save</button>
+  <h1>Killer Game</h1>
+
+  <h2>Select Your Player</h2>
+  <form id="playerForm">
+    <select id="playerDropdown">
+      <option value="">Select a player</option>
+    </select>
+    <button type="submit">Get Victim</button>
   </form>
-  <p id="responseMessage"></p>
+
+  <p id="victimMessage"></p>
 
   <script>
-    const form = document.getElementById('form');
-    const responseMessage = document.getElementById('responseMessage');
+    // Function to fetch players from the backend and populate the dropdown
+    async function fetchPlayers() {
+      try {
+        const response = await fetch('/players');
+        const players = await response.json();
 
-    form.addEventListener('submit', async (e) => {
+        const dropdown = document.getElementById('playerDropdown');
+        players.forEach((player) => {
+          const option = document.createElement('option');
+          option.value = player;
+          option.textContent = player;
+          dropdown.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error fetching players:', error);
+      }
+    }
+
+    // Event listener for form submission
+    document.getElementById('playerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const input = document.getElementById('inputField').value;
+      const selectedPlayer = document.getElementById('playerDropdown').value;
+      if (!selectedPlayer) {
+        return;
+      }
 
-      const response = await fetch('/save', {
+      const response = await fetch('/victim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input }),
+        body: JSON.stringify({ player: selectedPlayer })
       });
       const result = await response.json();
-      responseMessage.textContent = result.message;
+
+      if (response.status === 403) {
+        document.getElementById('victimMessage').textContent = `Error: ${result.error}`;
+      } else if (response.status === 200) {
+        document.getElementById('victimMessage').textContent = `Your victim is: ${result.victim}`;
+      }
     });
+
+    // Call the fetchPlayers function on page load
+    fetchPlayers();
   </script>
 </body>
 </html>

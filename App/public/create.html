@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Game</title>
+</head>
+<body>
+  <h1>Create a New Killer Game</h1>
+
+  <form id="createForm">
+    <label for="players">Enter player names (comma separated):</label>
+    <input type="text" id="players" required />
+    <button type="submit">Create Game</button>
+  </form>
+
+  <p id="createMessage"></p>
+
+  <script>
+    document.getElementById('createForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const players = document.getElementById('players').value;
+
+      const response = await fetch('/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ players })
+      });
+      const result = await response.json();
+      document.getElementById('createMessage').textContent = result.message;
+    });
+  </script>
+</body>
+</html>

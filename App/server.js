@@ -4,9 +4,8 @@ const app = express();
 const PORT = 5000;
 
 app.use(express.json());
-app.use(express.static('public')); // Serves frontend files
+app.use(express.static('public'));
 
-// Utility function to shuffle an array
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -32,15 +31,14 @@ app.post('/create', (req, res) => {
 
   const gameData = {
     game,
-    revealedVictims: [] // Initialize with an empty array to track revealed players
+    revealedVictims: []
   };
 
-  // Save the most recent game to a file
   fs.writeFile('game.json', JSON.stringify(gameData, null, 2), (err) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to create game' });
     }
-    res.json({ message: 'Game created successfully!' });
+    res.json({ message: 'Game erfolgreich erstellt!' });
   });
 });
 
@@ -53,7 +51,6 @@ app.get('/players', (req, res) => {
     const { game } = JSON.parse(fileData);
     const players = game.map((entry) => entry.killer);
 
-    // Shuffle the players before sending them to the client
     const shuffledPlayers = shuffleArray(players);
 
     res.json(shuffledPlayers);
@@ -72,7 +69,6 @@ app.post('/victim', (req, res) => {
     let gameData = JSON.parse(fileData);
     const { game, revealedVictims } = gameData;
 
-    // Check if the player has already seen their victim
     if (revealedVictims.includes(player)) {
       return res.status(403).json({ error: 'You have already seen your victim.' });
     }
@@ -83,10 +79,8 @@ app.post('/victim', (req, res) => {
       return res.status(404).json({ error: 'Player not found' });
     }
 
-    // Add the player to the revealed list
     revealedVictims.push(player);
 
-    // Save updated game state with revealed player
     fs.writeFile('game.json', JSON.stringify(gameData, null, 2), (err) => {
       if (err) {
         return res.status(500).json({ error: 'Failed to save player state' });

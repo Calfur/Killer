@@ -8,18 +8,17 @@
 <body>
   <h1>Killer Game</h1>
 
-  <h2>Select Your Player</h2>
+  <h2>Wähle deinen Namen</h2>
   <form id="playerForm">
     <select id="playerDropdown">
-      <option value="">Select a player</option>
+      <option value=""></option>
     </select>
-    <button type="submit">Get Victim</button>
+    <button type="submit">Opfer anzeigen</button>
   </form>
 
   <p id="victimMessage"></p>
 
   <script>
-    // Function to fetch players from the backend and populate the dropdown
     async function fetchPlayers() {
       try {
         const response = await fetch('/players');
@@ -37,7 +36,6 @@
       }
     }
 
-    // Event listener for form submission
     document.getElementById('playerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const selectedPlayer = document.getElementById('playerDropdown').value;
@@ -55,11 +53,10 @@
       if (response.status === 403) {
         document.getElementById('victimMessage').textContent = `Error: ${result.error}`;
       } else if (response.status === 200) {
-        document.getElementById('victimMessage').textContent = `Your victim is: ${result.victim}`;
+        document.getElementById('victimMessage').textContent = `Dein Opfer ist: ${result.victim}`;
       }
     });
 
-    // Call the fetchPlayers function on page load
     fetchPlayers();
   </script>
 </body>

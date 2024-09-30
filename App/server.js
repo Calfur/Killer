@@ -20,7 +20,7 @@ app.post('/create', (req, res) => {
   const playerNames = players.split(',').map((name) => name.trim());
 
   if (playerNames.length < 2) {
-    return res.status(400).json({ error: 'At least two players are required.' });
+    return res.status(400).json({ error: 'Mindestens zwei Spieler benötigt' });
   }
 
   const shuffledPlayers = shuffleArray([...playerNames]);
@@ -36,7 +36,7 @@ app.post('/create', (req, res) => {
 
   fs.writeFile('game.json', JSON.stringify(gameData, null, 2), (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to create game' });
+      return res.status(500).json({ error: 'Fehler beim erstellen vom Game' });
     }
     res.json({ message: 'Game erfolgreich erstellt!' });
   });
@@ -45,7 +45,7 @@ app.post('/create', (req, res) => {
 app.get('/players', (req, res) => {
   fs.readFile('game.json', 'utf8', (err, fileData) => {
     if (err || !fileData) {
-      return res.status(404).json({ error: 'No game found' });
+      return res.status(404).json({ error: 'Kein Game gefunden' });
     }
 
     const { game } = JSON.parse(fileData);
@@ -63,20 +63,20 @@ app.post('/victim', (req, res) => {
 
   fs.readFile('game.json', 'utf8', (err, fileData) => {
     if (err || !fileData) {
-      return res.status(404).json({ error: 'No game found' });
+      return res.status(404).json({ error: 'Kein Game gefunden' });
     }
 
     let gameData = JSON.parse(fileData);
     const { game, revealedVictims } = gameData;
 
     if (revealedVictims.includes(player)) {
-      return res.status(403).json({ error: 'You have already seen your victim.' });
+      return res.status(403).json({ error: 'Du hast dir dein Opfer bereits angesehen.' });
     }
 
     const playerEntry = game.find((entry) => entry.killer === player);
 
     if (!playerEntry) {
-      return res.status(404).json({ error: 'Player not found' });
+      return res.status(404).json({ error: 'Spieler nicht gefunden' });
     }
 
     revealedVictims.push(player);

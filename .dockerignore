@@ -1,0 +1,7 @@
+.git
+.github
+.gitignore
+README.md
+**/.DS_Store
+App/node_modules
+App/game.json

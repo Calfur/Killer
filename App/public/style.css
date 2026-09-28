@@ -186,6 +186,12 @@ button:hover { border-color: var(--blue-dark); background: var(--blue-dark); }
 
 .message:empty { display: none; }
 
+.game-message { margin: 0 0 18px; }
+
+.message a { color: inherit; text-decoration: underline; }
+
+.message a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
 @media (min-width: 640px) {
   .page-shell { padding-inline: 40px; }
   .masthead { margin-inline: -40px; padding: 90px 40px 142px; }

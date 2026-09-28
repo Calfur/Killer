@@ -1,6 +1,13 @@
 async function fetchPlayers() {
     try {
         const response = await fetch('/players');
+        if (response.status === 404) {
+            const result = await response.json();
+            if (result.error === 'Kein Game gefunden') {
+                document.getElementById('gameMessage').hidden = false;
+            }
+            return;
+        }
         if (!response.ok) return;
         const players = await response.json();
         if (!Array.isArray(players)) return;

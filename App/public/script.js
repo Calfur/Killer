@@ -1,15 +1,10 @@
 async function fetchPlayers() {
     try {
         const response = await fetch('/players');
+        if (!response.ok) return;
         const players = await response.json();
-
-        const dropdown = document.getElementById('playerDropdown');
-        players.forEach((player) => {
-            const option = document.createElement('option');
-            option.value = player;
-            option.textContent = player;
-            dropdown.appendChild(option);
-        });
+        if (!Array.isArray(players)) return;
+        setPlayerPickerOptions(players);
     } catch (error) {
         console.error('Error fetching players:', error);
     }
@@ -18,7 +13,7 @@ async function fetchPlayers() {
 function initSubmitPlayerForm(){
     document.getElementById('playerForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const selectedPlayer = document.getElementById('playerDropdown').value;
+        const selectedPlayer = document.getElementById('playerDropdown').dataset.player;
         if (!selectedPlayer) {
             return;
         }

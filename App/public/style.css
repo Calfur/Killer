@@ -68,7 +68,7 @@ h3 { font-family: HelveticaNeue, "Arial Black", Arial, sans-serif; }
 
 form { display: flex; flex-direction: column; gap: 14px; }
 
-select, input, button {
+input, button {
   width: 100%;
   min-height: 54px;
   border-radius: 7px;
@@ -76,7 +76,7 @@ select, input, button {
   font-size: 1rem;
 }
 
-select, input {
+input {
   padding: 12px 15px;
   border: 2px solid var(--border);
   background: var(--white);
@@ -98,15 +98,9 @@ select, input {
   transform: translateY(-70%) rotate(45deg);
 }
 
-select {
-  appearance: none;
-  padding-right: 54px;
-  cursor: pointer;
-}
+input:hover { border-color: var(--blue); }
 
-select:hover, input:hover { border-color: var(--blue); }
-
-select:focus-visible, input:focus-visible, button:focus-visible {
+input:focus-visible, button:focus-visible {
   outline: 3px solid var(--blue);
   outline-offset: 3px;
 }
@@ -122,6 +116,61 @@ button {
 }
 
 button:hover { border-color: var(--blue-dark); background: var(--blue-dark); }
+
+.player-picker {
+  padding: 12px 54px 12px 15px;
+  border-color: var(--border);
+  background: var(--white);
+  color: var(--text);
+  text-align: left;
+  font-weight: 400;
+}
+
+.player-picker:hover {
+  border-color: var(--blue);
+  background: var(--white);
+}
+
+.player-options {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  max-height: min(280px, 40vh);
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 28px rgba(32, 43, 109, 0.16);
+  list-style: none;
+}
+
+.player-options [role="option"] {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 5px;
+  color: var(--text);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.player-options [role="option"]:hover,
+.player-options [role="option"]:focus-visible,
+.player-options [aria-selected="true"] {
+  background: var(--blue-soft);
+}
+
+.player-options [role="option"]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.player-options [aria-selected="true"] { font-weight: 700; }
 
 .message {
   margin: 22px 0 0;
@@ -144,7 +193,7 @@ button:hover { border-color: var(--blue-dark); background: var(--blue-dark); }
   .panel { padding: 40px 44px 44px; }
   .player-form { flex-direction: row; }
   .player-form .select-wrap { flex: 1; min-width: 0; }
-  .player-form button { width: auto; white-space: nowrap; }
+  .player-form button[type="submit"] { width: auto; white-space: nowrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {

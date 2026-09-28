@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Killer Game</title>
+  <script src="./player-picker.js"></script>
   <script src="./script.js"></script>
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -20,9 +21,13 @@
         <h3 id="player-heading">Wähle deinen Namen</h3>
         <form id="playerForm" class="player-form">
           <div class="select-wrap">
-            <select id="playerDropdown" aria-labelledby="player-heading">
-              <option value=""></option>
-            </select>
+            <button id="playerDropdown" class="player-picker" type="button"
+              aria-haspopup="listbox" aria-expanded="false" aria-controls="playerOptions"
+              aria-labelledby="player-heading playerSelection">
+              <span id="playerSelection"></span>
+            </button>
+            <ul id="playerOptions" class="player-options" role="listbox"
+              aria-labelledby="player-heading" hidden></ul>
           </div>
           <button type="submit">Opfer anzeigen</button>
         </form>

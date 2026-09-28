@@ -50,10 +50,9 @@ app.get('/players', (req, res) => {
 
     const { game } = JSON.parse(fileData);
     const players = game.map((entry) => entry.killer);
+    players.sort((a, b) => a.localeCompare(b, 'de', { sensitivity: 'base' }));
 
-    const shuffledPlayers = shuffleArray(players);
-
-    res.json(shuffledPlayers);
+    res.json(players);
   });
 });
 

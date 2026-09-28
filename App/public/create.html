@@ -8,15 +8,25 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <h1>Create a New Killer Game</h1>
+  <div class="page-shell">
+    <header class="masthead">
+      <div class="masthead-inner">
+        <h1>Create a New Killer Game</h1>
+      </div>
+    </header>
 
-  <form id="createForm">
-    <label for="players">Enter player names (comma separated):</label>
-    <input type="text" id="players" required />
-    <button type="submit">Create Game</button>
-  </form>
+    <main class="content">
+      <section class="panel">
+        <form id="createForm">
+          <label for="players">Enter player names (comma separated):</label>
+          <input type="text" id="players" required />
+          <button type="submit">Create Game</button>
+        </form>
 
-  <p id="createMessage"></p>
+        <p id="createMessage" class="message" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
 
   <script>
     initSubmitCreateForm();

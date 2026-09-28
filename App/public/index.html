@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,17 +8,27 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <h1>Killer Game</h1>
+  <div class="page-shell">
+    <header class="masthead">
+      <div class="masthead-inner">
+        <h1>Killer Game</h1>
+      </div>
+    </header>
 
-  <h3>Wähle deinen Namen</h3>
-  <form id="playerForm">
-    <select id="playerDropdown">
-      <option value=""></option>
-    </select>
-    <button type="submit">Opfer anzeigen</button>
-  </form>
+    <main class="content">
+      <section class="panel" aria-labelledby="player-heading">
+        <h3 id="player-heading">Wähle deinen Namen</h3>
+        <form id="playerForm" class="player-form">
+          <select id="playerDropdown" aria-labelledby="player-heading">
+            <option value=""></option>
+          </select>
+          <button type="submit">Opfer anzeigen</button>
+        </form>
 
-  <p id="victimMessage"></p>
+        <p id="victimMessage" class="message" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
 
   <script>
     fetchPlayers();

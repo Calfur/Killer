@@ -51,7 +51,6 @@ h1 {
 .panel {
   padding: 28px 24px 30px;
   border: 1px solid var(--border);
-  border-top: 6px solid var(--blue);
   border-radius: 12px;
   background: var(--white);
   box-shadow: 0 14px 32px rgba(32, 43, 109, 0.09);
